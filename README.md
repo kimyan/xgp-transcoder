@@ -20,15 +20,16 @@ HTTP Server for Sending UDP String->XGP: Send UDP String
 
 ## 使い方
 
-黒い画面でやる
+黒い画面（ターミナル）でやる
 
 ### Python 3.x が入っているか確認
 
 ```
 $ python3 --version
+Python 3.6.3 <- これが出たらOK（3.x.yのxとyは適当）
 ```
 
-### bash: python3: command not found と表示された場合
+#### bash: python3: command not found と表示された場合
 
 ```
 $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -39,6 +40,53 @@ $ python3 --version
 ### このリポジトリをcloneする
 
 ```
-$ git clone 
+$ cd どこか適当なディレクトリ
+$ git clone https://github.com/kimyan/xgp-transcoder.git
+$ cd xgp-transcoder
+```
+
+### virtualenvの設定
 
 ```
+$ python3 -m venv env
+$ source env/bin/activate <- (env)と表示されていればOK。以後、これをやってから作業する。
+```
+
+### 必要なライブラリのインストール
+
+```
+(env)$ pip install -r requirements.txt
+```
+
+### 実行
+
+#### ひとつめ
+
+上の続きで
+
+```
+(env)$ python http-server-for-sending-json.py
+```
+
+#### ふたつめ
+
+別窓を開く
+
+```
+$ cd xgp-transcoder <- 実際の置き場所に移動する
+$ source env/bin/activate
+(env)$ python http-server-for-sending-udp-string.py
+```
+
+#### みっつめ
+
+別窓を開く
+
+```
+$ cd xgp-transcoder <- 実際の置き場所に移動する
+$ source env/bin/activate
+(env)$ python udp-string-receiver-for-sending-queue.py
+```
+
+
+
