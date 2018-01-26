@@ -39,6 +39,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             else:
                 parsed_path = urlparse(self.path)
                 self.send_response(200)
+                self.send_header("Access-Control-Allow-Origin", "*")
                 self.end_headers()
                 self.wfile.write(json.dumps({
                     'method': self.command,
@@ -58,6 +59,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         parsed_path = urlparse(self.path)
         self.send_response(200)
+        self.send_header("Access-Control-Allow-Origin", "*")
         self.end_headers()
         self.wfile.write(json.dumps({
             'method': self.command,
