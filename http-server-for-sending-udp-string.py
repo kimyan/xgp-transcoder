@@ -10,18 +10,17 @@ class RequestHandler(BaseHTTPRequestHandler):
 
     def do_POST(self):
 
-        udp_ip_address = 'localhost'
-        udp_port = 3001
+        udp_ip_address = '172.20.71.97'
+        udp_port = 3012
 
-        content_len = int(self.headers.getheader('content-length'))
+        content_len = int(self.headers['Content-Length'])
         post_body = self.rfile.read(content_len)
         post_data = json.loads(post_body)
 
-        client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        client.sendto("{0}".format(post_data['evaluation']), (udp_ip_address, udp_port))
+        print(post_data)
 
-        data, addr = client.recvfrom(4096)
-        print(data)
+        client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        client.sendto("{0}".format(post_data['evaluation']).encode('ascii'), (udp_ip_address, udp_port))
 
         parsed_path = urlparse(self.path)
         self.send_response(200)
